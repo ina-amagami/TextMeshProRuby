@@ -61,6 +61,7 @@ public static class TMProRubyUtil
 			{
 				var margin = tmpText.margin;
 				margin.y = isFirstLineRuby ? -(tmpText.fontSize * 0.55f) : 0;
+				margin.y *= tmpText.isOrthographic ? 1 : 0.1f;
 				tmpText.margin = margin;
 			}
 		}
