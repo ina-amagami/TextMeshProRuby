@@ -12,9 +12,6 @@ using TMPro;
 
 public static class TMProRubyUtil
 {
-	/// <summary>
-	/// <ruby=もじ>文字</ruby> もしくは <ruby="もじ">文字</ruby>
-	/// </summary>
 	private static readonly Regex TagRegex = new Regex("<r=\"?(?<ruby>.*?)\"?>(?<kanji>.*?)</r>", RegexOptions.IgnoreCase);
 
 	/// <summary>
@@ -36,9 +33,39 @@ public static class TMProRubyUtil
 	/// <summary>
 	/// ルビタグを展開してセット
 	/// </summary>
-	public static void SetTextAndExpandRuby(this TMP_Text tmpText, string text)
+	public static void SetTextAndExpandRuby(
+		this TMP_Text tmpText,
+		string text,
+		bool fixedLineHeight = false,
+		bool autoMarginTop = true)
 	{
-		tmpText.text = GetExpandText(text);
+		// 1行目にルビがあるか調べる
+		var isFirstLineRuby = false;
+		if (fixedLineHeight && autoMarginTop)
+		{
+			var firstNewLineIndex = text.IndexOf('\n');
+			var firstLine = firstNewLineIndex > 1 ? text.Substring(0, firstNewLineIndex + 1) : text;
+			isFirstLineRuby = TagRegex.IsMatch(firstLine);
+		}
+
+		text = GetExpandText(text);
+
+		if (fixedLineHeight)
+		{
+			// 行間を固定
+			var lineHeight = tmpText.font.faceInfo.lineHeight / tmpText.font.faceInfo.pointSize;
+			text = $"<line-height={lineHeight:F3}em>{text}";
+
+			// 1行目にルビがある時はMarginTopで位置調整
+			if (autoMarginTop)
+			{
+				var margin = tmpText.margin;
+				margin.y = isFirstLineRuby ? -(tmpText.fontSize * 0.55f) : 0;
+				tmpText.margin = margin;
+			}
+		}
+
+		tmpText.text = text;
 	}
 
 	/// <summary>
@@ -54,27 +81,27 @@ public static class TMProRubyUtil
 			{
 				builder.Length = 0;
 
-				string ruby = match.Groups["ruby"].Value;
-				int rL = ruby.Length;
-				string kanji = match.Groups["kanji"].Value;
-				int kL2 = kanji.Length * 2;
+				var ruby = match.Groups["ruby"].Value;
+				var rL = ruby.Length;
+				var kanji = match.Groups["kanji"].Value;
+				var kL2 = kanji.Length * 2;
 
 				// 手前に付ける空白
-				float space = kL2 < rL ? (rL - kL2) * 0.25f : 0f;
+				var space = kL2 < rL ? (rL - kL2) * 0.25f : 0f;
 				if (space < 0 || space > 0)
 				{
-					builder.Append($"<space={space.ToString("F2")}em>");
+					builder.Append($"<space={space:F2}em>");
 				}
 
 				// 漢字 - 文字数分だけ左に移動 - 開始タグ - ルビ - 終了タグ
 				space = -(kL2 * 0.25f + rL * 0.25f);
-				builder.Append($"{kanji}<space={space.ToString("F2")}em>{StartTag}{ruby}{EndTag}");
+				builder.Append($"{kanji}<space={space:F2}em>{StartTag}{ruby}{EndTag}");
 
 				// 後ろに付ける空白
 				space = kL2 > rL ? (kL2 - rL) * 0.25f : 0f;
 				if (space < 0 || space > 0)
 				{
-					builder.Append($"<space={space.ToString("F2")}em>");
+					builder.Append($"<space={space:F2}em>");
 				}
 
 				text = text.Replace(match.Groups[0].Value, builder.ToString());
