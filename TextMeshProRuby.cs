@@ -95,15 +95,21 @@ public class TextMeshProRuby : MonoBehaviour
 #if UNITY_EDITOR
 	private void Reset()
 	{
-		if (!tmpText)
-		{
-			tmpText = GetComponent<TMP_Text>();
-			Text = tmpText.text;
-		}
+		tmpText = GetComponent<TMP_Text>();
+		Text = tmpText.text;
 	}
 
 	private void OnValidate()
 	{
+		// Copy & PasteComponent対応
+		var newTMPText = GetComponent<TMP_Text>();
+		if (tmpText != newTMPText)
+		{
+			tmpText = newTMPText;
+			Text = tmpText.text;
+			return;
+		}
+
 		if (enabled)
 		{
 			Apply();
