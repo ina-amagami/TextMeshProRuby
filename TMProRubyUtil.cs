@@ -111,4 +111,22 @@ public static class TMProRubyUtil
 		}
 		return text;
 	}
+	
+	/// <summary>
+	/// TextMeshPro以外などの表示用にルビタグを除外したテキストを取得
+	/// </summary>
+	/// <returns>ルビタグ削除の文字列</returns>
+	public static string RemoveRubyTag(string text)
+	{
+		var match = TagRegex.Match(text);
+		while (match.Success)
+		{
+			if (match.Groups.Count > 2)
+			{
+				text = text.Replace(match.Groups[0].Value, match.Groups["kanji"].Value);
+			}
+			match = match.NextMatch();
+		}
+		return text;
+	}
 }
