@@ -1,5 +1,7 @@
 # TextMeshProRuby
 
+![TextMeshProRuby](https://amagamina.jp/wp-content/uploads/2019/12/tmpro-ruby-test.gif)
+
 UnityのTextMeshProで漢字テキストにルビを振る機能です
 
 詳しい解説は[**こちら**](https://amagamina.jp/tmpro-ruby/)
