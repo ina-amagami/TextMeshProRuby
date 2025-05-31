@@ -37,9 +37,21 @@ namespace TMP_Ruby.Editor
 
             if (TextMeshProRubyEditorConfig.Instance.EnableRubyFromAI && GUILayout.Button("AIルビ振り"))
             {
-                tmProRuby.Text = Utility.CreateRubyTagByOpenAI(tmProRuby.Text);
-                GUI.FocusControl(null);
-                EditorUtility.SetDirty(tmProRuby);
+                // APIキーが空の場合、設定画面を開く
+                if (string.IsNullOrEmpty(TextMeshProRubyEditorConfig.Instance.OpenAI_APIKey))
+                {
+                    EditorUtility.DisplayDialog(
+                        "OpenAIのAPIキーが未設定です",
+                        "AIルビ振り機能を使うにはOpenAI(ChatGPT)のAPIキーを設定する必要があります",
+                        "OK");
+                    SettingsService.OpenProjectSettings("Project/TMP Ruby Settings");
+                }
+                else
+                {
+                    tmProRuby.Text = Utility.CreateRubyTagByOpenAI(tmProRuby.Text);
+                    GUI.FocusControl(null);
+                    EditorUtility.SetDirty(tmProRuby);
+                }
             }
 
             if (fixedLineHeightProp.boolValue)
