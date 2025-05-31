@@ -1,0 +1,18 @@
+{
+    "name": "TextMeshProRuby-Editor",
+    "rootNamespace": "",
+    "references": [
+        "GUID:52f7a850cce134e7a86ee27f8e05c034"
+    ],
+    "includePlatforms": [
+        "Editor"
+    ],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
