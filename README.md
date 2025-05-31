@@ -17,7 +17,7 @@ upm経由でインストールする場合は `https://github.com/ina-amagami/Te
 ```manifest.json
 {
   "dependencies": {
-    "jp.amagamina.text-mesh-pro-ruby": "https://github.com/ina-amagami/TextMeshProRuby.git
+    "jp.amagamina.text-mesh-pro-ruby": "https://github.com/ina-amagami/TextMeshProRuby.git"
   }
 }
 ```
