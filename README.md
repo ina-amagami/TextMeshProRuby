@@ -10,6 +10,18 @@ v1.1.0より、OpenAIのAPIによるルビタグ自動生成のサポートを�
 
 詳しい解説は[**こちら**](https://amagamina.jp/tmpro-ruby/)
 
+## インストール
+
+upm経由でインストールする場合は `https://github.com/ina-amagami/TextMeshProRuby.git` を指定して下さい。
+
+```manifest.json
+{
+  "dependencies": {
+    "jp.amagamina.text-mesh-pro-ruby": "https://github.com/ina-amagami/TextMeshProRuby.git
+  }
+}
+```
+
 ## ライセンス条項
 
 MITライセンス
