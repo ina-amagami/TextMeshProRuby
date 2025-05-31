@@ -13,7 +13,7 @@ namespace TMP_Ruby.Editor
 
         [Header("OpenAI API Settings")] public string OpenAI_Model = "gpt-4o";
         public string OpenAI_APIKey;
-        [Range(0, 1f)] public float OpenAI_Temperature = 0.2f;
+        [Range(0, 1f)] public float OpenAI_Temperature = 0f;
 
         private const string AssetFileName = nameof(TextMeshProRubyEditorConfig) + ".asset";
         private const string AssetFolder = "Assets/Editor Default Resources";
