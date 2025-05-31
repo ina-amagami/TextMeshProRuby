@@ -2,7 +2,11 @@
 
 ![TextMeshProRuby](https://amagamina.jp/wp-content/uploads/2019/12/tmpro-ruby-test.gif)
 
-UnityのTextMeshProで漢字テキストにルビを振る機能です
+UnityのTextMeshProで漢字テキストにルビを振る機能です。
+
+v1.1.0より、OpenAIのAPIによるルビタグ自動生成のサポートを追加しました。
+
+![ルビタグAI生成](https://amagamina.jp/blog/wp-content/uploads/2025/05/tmpro-ruby-ai.gif)
 
 詳しい解説は[**こちら**](https://amagamina.jp/tmpro-ruby/)
 
@@ -13,4 +17,4 @@ https://opensource.org/licenses/mit-license.php
   
 コード内のライセンス表記を残して頂ければ自由に使用可能です。
   
-Copyright (c) 2019 ina-amagami (ina@amagamina.jp)
+Copyright (c) 2019-2025 ina-amagami (ina@amagamina.jp)
